@@ -1,0 +1,51 @@
+{%extends 'base.html'%}
+{% block title %}
+        Ekart | Cart
+{% endblock %}
+{%block body%}
+<div class="row">
+    <div class="col-md-9 mt-2">
+        <h5 class="bg-danger text-white p-2">Customer Details</h5>
+        <p><b>Name:</b> {{user.username}}</p>
+        <p><b>Phone No.:</b> 123456</p>
+        <p><b>Email:</b> {{user.email}}</p>
+
+        <h5 class="bg-danger text-white p-2">Cart Details</h5>
+        
+        {% for x in cart_items%}
+        <div class="row">
+            <div class="col-md-4 mt-2">
+                <img src="{{x.product.image.url}}" width="100%" style="height: 200px;">
+            </div>
+            <div class="col-md-8">
+                <p><b>Product Name:</b>&nbsp;&nbsp;{{x.product.product_name}}</p>
+                <p><b>Price:</b>&nbsp;&nbsp;{{x.product.price}}</p>
+                <p><b>Quantity:</b>&nbsp;&nbsp;
+                    <a href="/updateqty/0/{{x.product.product_id}}"><button class="btn btn-danger">-</button></a>
+                    <input type="number" value="{{x.quantity}}">
+                    <a href="/updateqty/1/{{x.product.product_id}}"><button class="btn btn-danger">+</button></a>
+                </p>
+                <p><b>Product Details:</b>&nbsp;&nbsp;{{x.product.desc}}</p>
+                <a href="/removeCart/{{x.product_id}}"><button type="submit" class="btn btn-danger">Remove</button></a>
+                <a href="#"><button type="submit" class="btn btn-danger">Buy</button></a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="row">
+            <div class="col">
+                Your Cart is Empty.<br>
+                Continue Shopping!!<br>
+            </div>
+        </div>
+        {% endfor %}
+    
+    </div>
+    <div class="col-md-3 mt-2">
+        <h5 class="bg-danger text-white p-2">Total Amount Section</h5>
+        <p><b>Total Items({{items}}):</b> Rs.&nbsp;&nbsp;{{total}}</p> 
+            <hr>
+        <p><b>Total Amount:</b>  Rs.&nbsp;&nbsp;{{total}}</p>
+        <a href="/viewOrder"><button class="btn btn-danger">Place Order</button></a>
+    </div>
+</div>
+{% endblock %}
